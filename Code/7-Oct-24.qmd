@@ -31,3 +31,40 @@ levels(tomatoes$Treatment)
 tomatoes$Treatment <- factor(tomatoes$Treatment)
 ```
 
+```{r}
+tomatoes |> mutate(Treatment = 
+                     case_when(Treatment == "fertilizer" ~ "Fertilizer",
+                               Treatment == "control" ~ "Control"))
+                               
+```
+
+# calculating 5 number summary
+```{r}
+grades <- c(90,94,96,90,84,86)
+
+# min
+min(grades)
+84
+
+# max
+max(grades)
+96
+
+# mean
+(90+94+96+90+84+86)/6
+90
+
+# median
+median(grades)
+90
+
+# 1st quartile
+96-84
+12*.25+84
+87
+
+3rd quartile
+96-(12*.25)
+93
+```
+
