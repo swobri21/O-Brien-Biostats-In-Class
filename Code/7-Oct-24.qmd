@@ -1,0 +1,33 @@
+---
+title: "7-Oct-24"
+format: html
+---
+
+## setup
+```{r}
+rm(list=ls())
+library(tidyverse)
+library(here)
+```
+
+# Data
+```{r}
+tomatoes <- read.csv(here("Data/tomatoes.csv"))
+glimpse(tomatoes)
+```
+
+
+```{r}
+tomatoes$Treatment <- 
+  as.factor(tomatoes$Treatment)
+levels(tomatoes$Treatment) # shows 4 different levels which is wrong
+
+fix <- which(tomatoes$Treatment == "control")
+tomatoes$Treatment[fix] <- "Control"
+
+fix2 <- which(tomatoes$Treatment == "fertilizer")
+tomatoes$Treatment[fix2] <- "Fertilizer"
+levels(tomatoes$Treatment)
+tomatoes$Treatment <- factor(tomatoes$Treatment)
+```
+
