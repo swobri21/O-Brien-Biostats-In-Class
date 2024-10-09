@@ -1,0 +1,30 @@
+---
+title: "9-Oct-24"
+author: "S.O'Brien"
+format: html
+---
+
+## setup
+```{r}
+rm(list=ls())
+library(tidyverse)
+library(here)
+```
+
+## read in tomato data
+```{r}
+tomatoes <- read.csv(here("Data/tomatoes.csv"))
+```
+
+## return 3rd, 7th, and 9th row
+```{r}
+slice(tomatoes, c(3, 7, 9))
+```
+
+## find all of the plants from the fertilizer treatment with avg_tomato_weight_g > or equal to 145 g
+```{r}
+tomatoes |>
+  filter(Treatment == "Fertilizer" | Treatment == "fertilizer") |>
+  filter(Avg_tomato_weight_g >= 145)
+```
+
