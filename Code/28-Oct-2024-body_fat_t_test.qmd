@@ -1,0 +1,52 @@
+---
+title: "Practice with t-tests"
+output: html_document
+date: "2022-10-27"
+---
+
+## Reviewing the t-test
+
+Let's conduct a 2-sample t-test to compare body fat percentage between men and women.
+
+The data set presents the body fat percentage for a sample of men and women who all work out at the same gym. In general, men are leaner than women, with a body fat percentage centering around 15% whereas for women it tends to center around 20%. Let’s see if the same is true of these data.
+
+## Instructions
+
+Use the information you learned from reading chapter 5 and doing homework 21 to conduct a t-test comparing mean body fat percentage between the male and female groups. But don’t just rush to the test – follow the recommended analysis workflow:
+
+1.  Plot the data and look at expected relationships
+
+Load data
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here)
+bodyfat <- read.csv(here("Data/body_fat_percentage.csv"))
+
+bodyfat$gender <- 
+  as.factor(bodyfat$gender)
+levels(bodyfat$gender)
+```
+
+Plot
+```{r}
+ggplot(bodyfat, aes(y = body_fat_percent, x = gender)) +
+  geom_boxplot()
+```
+
+2.  Calculate the mean and standard deviation for the data and examine the resulting output.
+```{r}
+bodyfat |> 
+  group_by(gender) |>
+  summarise(mean = mean(body_fat_percent),
+            sd = sd(body_fat_percent))
+```
+
+3.  Discuss with your partner:
+    -   Review in the book: What are the assumptions about the data appropriate for a t-test? When you examine the plots and summary data, do they appear to meet those assumptions?
+    -   Based on examination of the plots and summary data, do you expect that there is a statistically significant difference in mean body fat percentage between males and females in this sample?
+4.  Conduct a t-test and then interpret the results. What do they tell you about the null vs. alternative hypotheses?
+```{r}
+t.test(body_fat_percent ~ gender, data = bodyfat)
+```
+
