@@ -38,12 +38,13 @@ ggplot(bodyfat, aes(y = body_fat_percent, x = gender)) +
 ```{r}
 bodyfat |> 
   group_by(gender) |>
-  summarise(mean = mean(body_fat_percent),
-            sd = sd(body_fat_percent))
+  summarise(mean = mean(body_fat_percent, na.rm = T),
+            sd = sd(body_fat_percent, na.rm = T))
 ```
 
 3.  Discuss with your partner:
     -   Review in the book: What are the assumptions about the data appropriate for a t-test? When you examine the plots and summary data, do they appear to meet those assumptions?
+equal variance, normality, residuals 
     -   Based on examination of the plots and summary data, do you expect that there is a statistically significant difference in mean body fat percentage between males and females in this sample?
 4.  Conduct a t-test and then interpret the results. What do they tell you about the null vs. alternative hypotheses?
 ```{r}

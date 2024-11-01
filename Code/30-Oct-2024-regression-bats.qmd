@@ -1,0 +1,113 @@
+---
+title: "30 October 2024 - Regression"
+format: html
+editor: visual
+---
+
+## Overview
+
+For your homework you read through the section of the book that presents linear regression. Regression is a powerful tool that is used widely in Biology so let's get more familiar with it by running another example.
+
+Set things up (hint: there is something new to add to your `library()` calls...)
+
+```{r}
+rm(list=ls())
+library(tidyverse)
+library(here)
+library(ggfortify)
+```
+
+## Linear models
+
+Now we move into something called "general linear models". They are a class of model that includes regression, multiple regression, ANOVA and ANCOVA. All are fundamentally linear models.
+
+Don't confuse a general linear model with a *generalized* linear model or GLM.
+
+## The data
+
+Let's pull in some data appropriate for the day before Halloween: data on Bats!
+
+```{r}
+bats <- read.csv(here("Data/tricolored_bat_hibernation.csv"))
+glimpse(bats)
+```
+
+These data came from a research project looking at what, if any, environmental variables impact mass loss in bats during hibernation. Bats were housed in environmental chambers (`Chamber`) with different temperature (`Temp_C`) and humidity (`Rel_humid_percent`) levels and were monitored for the number of different times they aroused from hibernation as well as how much body mass they lost during the hibernation period.
+
+A couple of the variables are categorical - let's fix that in the data.
+
+```{r}
+covid$Vaccination_status <- 
+  as.factor(covid$Vaccination_status)
+levels(covid$Vaccination_status)
+```
+
+## Question
+
+Is there a relationship between the number of arousals and the amount of mass lost in bats?
+
+Prediction: bats that arouse from hibernation more frequently will lose more body mass during hibernation.
+
+## Plot the data
+
+Let's start with a scatter plot:
+
+```{r}
+
+```
+
+## Interpreting the figure: biological insight
+
+We notice that the slope is: **CHOOSE ONE: POSITIVE NEGATIVE FLAT (0)**.
+
+We can also guesstimate the slope and intercept from the figure:
+
+Roughly speaking, the mass lost during hibernation ranges between **FILL IN VALUES**
+
+Roughly speaking, the number of arousals varies between **FILL IN VALUES**
+
+Slope is rise/run, which in this case is about **FILL IN VALUES** for rise and **FILL IN VALUES** for run, so we get **FILL IN VALUE** as our guesstimate of the slope.
+
+Eyeballing the plot, we would also guess that the y-intercept is somewhere around **FILL IN VALUE**
+
+**IT IS ALWAYS A GOOD IDEA TO EXAMINE YOUR DATA BEFORE THE ANALYSIS AND TO SEE IF YOU CAN APPROXIMATE SOME OF THE VALUES THAT WILL RESULT.**
+
+## Making a simple linear regression happen
+
+We use the `lm()` function...
+
+```{r}
+model_bats <- lm(mass_loss_g ~ Arousals, data = bats)
+```
+
+Ok, the model has been fit. Before we look at the results, let's consider the assumptions.
+
+```{r}
+autoplot(model_bats, smooth.colour = NA)
+```
+
+What does this all mean?
+
+## Now the interpretation
+
+```{r}
+
+```
+
+And the summary table:
+
+```{r}
+
+```
+
+## From stats back to figure
+
+Now let's make a figure that shows off our relationship in light of our statistical results.
+
+```{r}
+
+```
+
+We can see that the `geom_smooth()` call allowed the computer to add the fitted values and the standard error of the fit to a figure.
+
+Don't expect `geom_smooth()` to work correctly for more complex models.
